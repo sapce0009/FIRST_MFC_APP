@@ -14,7 +14,10 @@
 #define new DEBUG_NEW
 #endif
 
-
+// #define 매크로 상수 매크로 명은 대문자로.
+// 프로그램의 가독성을 높여주고 유지보수도 용이하게 해준다, 변수를 사용하는것보다 처리속도도 빠름
+#define COLOR_LABEL_BK RGB(100,0,0)
+#define COLOR_LABEL_TEXT RGB(255,255,255)
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
 
 class CAboutDlg : public CDialogEx
@@ -61,6 +64,7 @@ CMFCApplication1Dlg::CMFCApplication1Dlg(CWnd* pParent /*=nullptr*/)
 void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BUTTON_NEW, m_btnNew);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
@@ -103,7 +107,7 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
-
+	InitButtons(&m_btnNew);
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -156,6 +160,18 @@ HCURSOR CMFCApplication1Dlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+void CMFCApplication1Dlg::InitButtons(CButtonST* pButton) {
+
+	CFont Font;
+	Font.CreatePointFont(30, _T("Consolas"));
+	pButton->SetFont(&Font);
+	pButton->SetColor(CButtonST::BTNST_COLOR_BK_IN, COLOR_LABEL_BK);
+	pButton->SetColor(CButtonST::BTNST_COLOR_BK_OUT, COLOR_LABEL_BK);
+	pButton->SetColor(CButtonST::BTNST_COLOR_BK_FOCUS, COLOR_LABEL_BK);
+	pButton->SetColor(CButtonST::BTNST_COLOR_FG_IN, COLOR_LABEL_TEXT);
+	pButton->SetColor(CButtonST::BTNST_COLOR_FG_OUT, COLOR_LABEL_TEXT);
+	pButton->SetColor(CButtonST::BTNST_COLOR_FG_FOCUS, COLOR_LABEL_TEXT);
+}
 
 
 void CMFCApplication1Dlg::OnBnClickedButtonNew()

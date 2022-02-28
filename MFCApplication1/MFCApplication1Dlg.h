@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "BtnST.h"
 
 
 // CMFCApplication1Dlg 대화 상자
@@ -33,4 +34,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButtonNew();
+
+	CButtonST m_btnNew;
+	void InitButtons(CButtonST* pButton);
 };
