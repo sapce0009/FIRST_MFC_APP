@@ -13,6 +13,7 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+#include <fstream>
 
 // #define 매크로 상수 매크로 명은 대문자로.
 // 프로그램의 가독성을 높여주고 유지보수도 용이하게 해준다, 변수를 사용하는것보다 처리속도도 빠름
@@ -75,6 +76,7 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON_NEW, &CMFCApplication1Dlg::OnBnClickedButtonNew)
+	ON_BN_CLICKED(IDOK, &CMFCApplication1Dlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -112,6 +114,8 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	InitButtons(&m_btnNew);
 	InitLabels(&m_lbNum);
+
+	UpdateIni(true);
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -185,6 +189,23 @@ void CMFCApplication1Dlg::InitLabels(CLabel* pLabel) {
 
 }
 
+void CMFCApplication1Dlg::UpdateIni(BOOL bLoad) {
+
+	CString fileName = CString("C:\\Users\\SeungHwan\\Desktop\\MFCApplication1-master\\MFCApplication1\\Glim.ini");
+	std::ifstream file(fileName);
+	if (!file.good()) bLoad = false;
+	CString str(fileName);
+	CString strSection(_T("Parameters"));
+
+	CIni ini(str, strSection);
+
+	ini.SerGet(bLoad, m_dNum, _T("NUM"));
+
+	UpdateData(false);
+
+
+}
+
 void CMFCApplication1Dlg::OnBnClickedButtonNew()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -194,4 +215,15 @@ void CMFCApplication1Dlg::OnBnClickedButtonNew()
 	UpdateData(true);
 	m_lbNum.SetText(m_dNum);
 
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedOk()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	UpdateData(true);
+	UpdateIni(false);
+
+	CDialogEx::OnOK();
 }

@@ -5,6 +5,7 @@
 #pragma once
 #include "BtnST.h"
 #include "Label.h"
+#include "ini.h"
 
 
 // CMFCApplication1Dlg 대화 상자
@@ -41,4 +42,7 @@ public:
 	double m_dNum;
 	CLabel m_lbNum;
 	void InitLabels(CLabel* pLabel);
+
+	void UpdateIni(BOOL bLoad);
+	afx_msg void OnBnClickedOk();
 };
