@@ -4,6 +4,7 @@
 
 #pragma once
 #include "BtnST.h"
+#include "Label.h"
 
 
 // CMFCApplication1Dlg 대화 상자
@@ -37,4 +38,7 @@ public:
 
 	CButtonST m_btnNew;
 	void InitButtons(CButtonST* pButton);
+	double m_dNum;
+	CLabel m_lbNum;
+	void InitLabels(CLabel* pLabel);
 };
