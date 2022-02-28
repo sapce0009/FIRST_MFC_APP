@@ -77,6 +77,9 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON_NEW, &CMFCApplication1Dlg::OnBnClickedButtonNew)
 	ON_BN_CLICKED(IDOK, &CMFCApplication1Dlg::OnBnClickedOk)
+	ON_WM_DESTROY()
+	ON_BN_CLICKED(IDC_BUTTON_IMAGE, &CMFCApplication1Dlg::OnBnClickedButtonImage)
+	ON_BN_CLICKED(IDC_BUTTON_PARAMETER, &CMFCApplication1Dlg::OnBnClickedButtonParameter)
 END_MESSAGE_MAP()
 
 
@@ -114,6 +117,7 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	InitButtons(&m_btnNew);
 	InitLabels(&m_lbNum);
+	InitDialog();
 
 	UpdateIni(true);
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
@@ -166,6 +170,32 @@ void CMFCApplication1Dlg::OnPaint()
 HCURSOR CMFCApplication1Dlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
+}
+
+void CMFCApplication1Dlg::InitDialog(){
+	m_pDlgImage = new CDlgImage();
+	m_pDlgImage->Create(IDD_CDlgImage);
+	m_pDlgImage->MoveWindow(20, 100, 600, 350);
+
+	m_pDlgParameter = new CDlgParameter();
+	m_pDlgParameter->Create(IDD_CDlgParameter);
+	m_pDlgParameter->MoveWindow(20, 100, 600, 350);
+
+	SetDlgView(DLG_VIEW_IMAGE);
+	SetDlgView(DLG_VIEW_PARAMETER);
+
+;}
+
+void CMFCApplication1Dlg::SetDlgView(int nMode) {
+	if (nMode & DLG_VIEW_IMAGE)
+		m_pDlgImage->ShowWindow(SW_SHOW);
+	else
+		m_pDlgImage->ShowWindow(SW_HIDE);
+	if (nMode & DLG_VIEW_PARAMETER)
+		m_pDlgParameter->ShowWindow(SW_SHOW);
+	else
+		m_pDlgParameter->ShowWindow(SW_HIDE);
+
 }
 
 void CMFCApplication1Dlg::InitButtons(CButtonST* pButton) {
@@ -226,4 +256,28 @@ void CMFCApplication1Dlg::OnBnClickedOk()
 	UpdateIni(false);
 
 	CDialogEx::OnOK();
+}
+
+
+void CMFCApplication1Dlg::OnDestroy()
+{
+	CDialogEx::OnDestroy();
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	delete m_pDlgImage;
+	delete m_pDlgParameter;
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButtonImage()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	SetDlgView(DLG_VIEW_IMAGE);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButtonParameter()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	SetDlgView(DLG_VIEW_PARAMETER);
 }
