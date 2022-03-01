@@ -82,6 +82,8 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_PARAMETER, &CMFCApplication1Dlg::OnBnClickedButtonParameter)
 	ON_BN_CLICKED(IDC_BUTTON_LOAD, &CMFCApplication1Dlg::OnBnClickedButtonLoad)
 	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CMFCApplication1Dlg::OnBnClickedButtonSave)
+	ON_BN_CLICKED(IDC_BUTTON_BINARIZTION, &CMFCApplication1Dlg::OnBnClickedButtonBinariztion)
+	ON_BN_CLICKED(IDC_BUTTON_CENTROID, &CMFCApplication1Dlg::OnBnClickedButtonCentroid)
 END_MESSAGE_MAP()
 
 
@@ -292,6 +294,7 @@ void CMFCApplication1Dlg::OnBnClickedButtonLoad()
 	CFileDialog FIleDlg(TRUE, CString(".BMP"), NULL, 0, CString(strFilter));
 
 	if (FIleDlg.DoModal() == IDOK) {
+		m_pDlgImage->m_imgFile.Destroy();
 		HRESULT hr = m_pDlgImage->m_imgFile.Load(FIleDlg.GetPathName());
 
 		if (SUCCEEDED(hr)) {
@@ -314,8 +317,32 @@ void CMFCApplication1Dlg::OnBnClickedButtonSave()
 	CFileDialog FIleDlg(TRUE, CString(".BMP"), NULL, 0, CString(strFilter));
 
 	if (FIleDlg.DoModal() == IDOK) {
-	
+		
+
 		m_pDlgImage->m_imgFile.Save(FIleDlg.GetPathName());
 	}
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButtonBinariztion()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	m_pDlgImage->binariztion();
+
+	m_pDlgParameter->ShowWindow(SW_HIDE);
+	m_pDlgImage->ShowWindow(SW_HIDE);
+	m_pDlgImage->ShowWindow(SW_SHOW);
+
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButtonCentroid()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_pDlgImage->centroid();
+	m_pDlgParameter->ShowWindow(SW_HIDE);
+	m_pDlgImage->ShowWindow(SW_HIDE);
+	m_pDlgImage->ShowWindow(SW_SHOW);
 }

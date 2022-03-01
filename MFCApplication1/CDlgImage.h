@@ -28,4 +28,7 @@ public:
 	afx_msg void OnPaint();
 
 	void drawImage();
+
+	void binariztion();
+	void centroid();
 };
