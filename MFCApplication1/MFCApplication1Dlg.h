@@ -38,6 +38,7 @@ protected:
 public:
 	afx_msg void OnBnClickedButtonNew();
 
+	int nThreshold = 128;
 	CButtonST m_btnNew;
 	void InitButtons(CButtonST* pButton);
 	double m_dNum;

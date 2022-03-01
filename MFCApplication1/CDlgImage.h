@@ -29,6 +29,6 @@ public:
 
 	void drawImage();
 
-	void binariztion();
+	void binariztion(int threshold);
 	void centroid();
 };

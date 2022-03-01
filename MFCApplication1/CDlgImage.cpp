@@ -58,7 +58,7 @@ void CDlgImage::drawImage() {
 	}
 }
 
-void CDlgImage::binariztion() {
+void CDlgImage::binariztion(int threshold) {
 	if (m_imgFile != NULL) {
 		unsigned char* fm = (unsigned char*)m_imgFile.GetPixelAddress(0, m_imgFile.GetHeight() - 1);
 
@@ -68,7 +68,7 @@ void CDlgImage::binariztion() {
 		for (int j = 0; j < h; j++) {
 			for (int i = 0; i < w; i++) {
 				unsigned char* fmTmp = fm + j * w + i;
-				if (*fmTmp < 128) *fmTmp = 0;
+				if (*fmTmp < threshold) *fmTmp = 0;
 				else *fmTmp = 0xff;
 
 			}

@@ -177,12 +177,12 @@ HCURSOR CMFCApplication1Dlg::OnQueryDragIcon()
 }
 
 void CMFCApplication1Dlg::InitDialog(){
-	m_pDlgImage = new CDlgImage();
-	m_pDlgImage->Create(IDD_CDlgImage);
+	m_pDlgImage = new CDlgImage(this);
+	m_pDlgImage->Create(IDD_CDlgImage, this);
 	m_pDlgImage->MoveWindow(20, 100, 600, 350);
 
-	m_pDlgParameter = new CDlgParameter();
-	m_pDlgParameter->Create(IDD_CDlgParameter);
+	m_pDlgParameter = new CDlgParameter(this);
+	m_pDlgParameter->Create(IDD_CDlgParameter, this);
 	m_pDlgParameter->MoveWindow(20, 100, 600, 350);
 
 	SetDlgView(DLG_VIEW_IMAGE);
@@ -329,7 +329,7 @@ void CMFCApplication1Dlg::OnBnClickedButtonBinariztion()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
-	m_pDlgImage->binariztion();
+	m_pDlgImage->binariztion(nThreshold);
 
 	m_pDlgParameter->ShowWindow(SW_HIDE);
 	m_pDlgImage->ShowWindow(SW_HIDE);
